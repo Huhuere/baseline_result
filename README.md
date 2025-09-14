@@ -1,4 +1,4 @@
-# dev_test_result.csv 说明
+# SpeechFormer_dev_test_result.csv 说明
 
 ## 1. 文件来源
 训练过程按 epoch 在 dev 上评估，用 dev 集macro f1选出最佳 epoch，保存为 `best.pt`。随后仅用该最佳模型在测试集 (test) 上跑 **一次**，生成 `dev_test_result.csv`。
