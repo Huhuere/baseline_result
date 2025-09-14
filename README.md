@@ -7,7 +7,7 @@ dev_xxx列记录了训练过程中在验证集表现最好的模型评估结果�
 | 列名 | 含义 | 备注 |
 |------|------|------|
 | dev_accuracy | dev集准确率 | |
-| dev_recall | dev集宏平均召回 (UA) | macro recall |
+| dev_recall | dev集宏平均召回 | macro recall |
 | dev_f1 | dev集 macro f1| 用于选择 best.pt |
 | dev_precision | dev集宏平均精度 | macro precision |
 | dev_auc | dev集 AUC | 二分类：正类概率|
