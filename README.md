@@ -29,6 +29,6 @@ dev_xxx列记录了训练过程中在验证集表现最好的模型评估结果�
 |------|------|------|------|------|------|------|
 |0.63571| 0.58333| 0.58486|0.58823|0.56506|0.41667|0.75000|
 ## 5. 验证集最优模型在测试集评估结果
-|train_accuracy | train_recall |train_macro_f1 |train_precision |train_auc| train_sensitivity| train_specificity |
+|test_accuracy | test_recall |test_macro_f1 |test_precision |test_auc| test_sensitivity| test_specificity |
 |------|------|------|------|------|------|------|
 |0.65957| 0.55195| 0.55238|0.56486|0.53680|0.28571|0.81818|
