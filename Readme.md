@@ -75,8 +75,8 @@ python -m pip install -r requirements.txt
 ```
 python ./extract_feature/extract_wav2vec.py
 ```
-Modify the argument: `matdir` in `./config/xxx_feature_config.json` to the folder path of your extracted feature.
-
+* 参数：meta_csv为前文数据切片元文件metadata_authority.csv，audio_dir为音频文件夹，将前文数据预处理中train_mode_46_18、dev_mode_20_20、test_mode_20_20中的.wav文件统一放入save_wav_files。
+* 运行结果输出save_feature_files_train_46_18文件夹存放所有数据的特征.mat文件
 
 # 三、训练
 ## Train model
