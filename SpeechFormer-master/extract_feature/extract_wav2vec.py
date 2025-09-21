@@ -50,7 +50,7 @@ if __name__ == '__main__':
     # 遍历 metadata_authority.csv 提取特征
     meta_csv = 'metadata_authority.csv'
     audio_dir = 'save_wav_files'  # 音频文件夹
-    save_dir = 'save_feature_files'  # 特征保存文件夹
+    save_dir = 'save_feature_files_train_46_18'  # 特征保存文件夹
     os.makedirs(save_dir, exist_ok=True)
     df = pd.read_csv(meta_csv)
     for name in df['name']:
