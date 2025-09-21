@@ -1,4 +1,4 @@
-# 数据预处理与元数据生成（DAIC-WOZ，46_18 / 20_20）
+# 一、数据预处理与元数据生成（DAIC-WOZ，46_18 / 20_20）
 
 脚本完成：
 - 读取转写与原始音频，按句段切分为片段并保存为 `pid_s{idx}_AUDIO.wav`
@@ -60,7 +60,8 @@ CSV 均按数值顺序排序（先 PID，再片段序号）。
   - train 使用 `proportional`：`label==0 -> 18 条`，`label==1 -> 46 条`
   - dev/test 使用 `fixed`：每个 subject 固定 `FIXED_N` 条
 
-#特征提取
+
+# 二、特征提取
 
 ## 快速开始
 
@@ -77,7 +78,7 @@ python ./extract_feature/extract_wav2vec.py
 Modify the argument: `matdir` in `./config/xxx_feature_config.json` to the folder path of your extracted feature.
 
 
-#训练
+# 三、训练
 ## Train model
 Set the hyper-parameters on `./config/config.py` and `./config/model_config.json`.  
 Note: the value of `expand` in `./config/model_config.json` for SpeechFormer-S is `[1, 1, 1, -1]`, while that of SpeechFormer-B is `[1, 1, 2, -1]`.  
