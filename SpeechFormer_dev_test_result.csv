@@ -1,3 +1,4 @@
 dev_accuracy,dev_recall,dev_macro_f1,dev_precision,dev_auc,dev_sensitivity,dev_specificity,test_accuracy,test_recall,test_macro_f1,test_precision,test_auc,test_sensitivity,test_specificity
-0.635714,0.583333,0.584860,0.588228,0.565063,0.416667,0.750000,0.659574,0.551948,0.552381,0.564865,0.536797,0.285714,0.818182
+0.600000,0.561141,0.560440,0.560000,0.559683,0.437500,0.684783,0.659574,0.613636,0.608333,0.605847,0.580087,0.500000,0.727273
+
 
