@@ -37,16 +37,33 @@ if __name__ == '__main__':
     Pre-trained wav2vec model is available at https://github.com/pytorch/fairseq/blob/main/examples/wav2vec.
     Download model and save at model_path.
     '''
-    model_path = '/148Dataset/data-chen.weidong/pre_trained_model/wav2vec/wav2vec_large.pt'
+    import os
+    import pandas as pd
+    import gc
+    model_path = 'wav2vec_large.pt'
     sample_rate = 16000    # input should be resampled to 16kHz!
     cp = torch.load(model_path, map_location='cpu')
     wav2vec = Wav2VecModel.build_model(cp['args'], task=None)
     wav2vec.load_state_dict(cp['model'])
     wav2vec.eval()
 
-    #### use extract_wav2vec
-    # wavfile = xxx
-    # savefile = xxx
-    # extract_wav2vec(wavfile, savefile)
-    
+    # 遍历 metadata_authority.csv 提取特征
+    meta_csv = 'metadata_authority.csv'
+    audio_dir = 'save_wav_files'  # 音频文件夹
+    save_dir = 'save_feature_files'  # 特征保存文件夹
+    os.makedirs(save_dir, exist_ok=True)
+    df = pd.read_csv(meta_csv)
+    for name in df['name']:
+        wavfile = os.path.join(audio_dir, name)
+        savefile = os.path.join(save_dir, os.path.splitext(name)[0] + '.mat')
+        if not os.path.exists(wavfile):
+            print(f'音频文件不存在: {wavfile}')
+            continue
+        try:
+            extract_wav2vec(wavfile, savefile)
+        except Exception as e:
+            print(f"Error processing {wavfile}: {e}")
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
     
