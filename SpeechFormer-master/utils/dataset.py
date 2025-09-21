@@ -257,33 +257,52 @@ class Pitt_dataset(Base_dataset):
         super().__init__(database, mode, length, feature_dim, pad_value, load_name=True)
 
 class DAIC_WOZ(Base_database):
+    """DAIC_WOZ dataset handler.
+    metadata.csv 需要至少包含列: name,label,state
+      * state ∈ {train,dev,test}
+      * label 可以是 0/1 (0: not-depressed, 1: depressed)
+      * name 为原始切片名, 代码仍然沿用原逻辑截掉最后 10 个字符得到 mat 名
+    """
     def __init__(self, matdir=None, matkey=None, state=None, meta_csv_file=None):
-        assert state in ['train', 'test'], print(f'Wrong state: {state}')  # test represents the development set in this database.
+        assert state in ['train', 'dev', 'test'], print(f'Wrong state: {state}')
+        self.requested_state = state
         self.set_state(state)
         names, labels = self.load_state_data(meta_csv_file)
 
         label_conveter = {'not-depressed': 0, 'depressed': 1}
-        super().__init__(names, labels, matdir, matkey, state, label_conveter)
+        super().__init__(names, labels, matdir, matkey, self.state, label_conveter)
 
     def set_state(self, state):
-        if state == 'test':
-            state = 'dev'
         self.state = state
     
     def load_state_data(self, meta_csv_file):
         df = pd.read_csv(meta_csv_file)
 
-        df = df[df.state == self.state]
+        df_state = df[df.state == self.state]
+        # 回退逻辑: 如果请求 test 但为空, 自动回退 dev
+        if (self.state == 'test') and (len(df_state) == 0):
+            df_state = df[df.state == 'dev']
+            if len(df_state) > 0:
+                print('[DAIC_WOZ] Warning: metadata 中没有 test 样本, 已自动回退使用 dev 作为 test。请检查是否需要真正的独立测试集。')
 
         names, indexes = [], []
         index_2_label = {0: 'not-depressed', 1: 'depressed'}
-        for row in df.iterrows():
+        for row in df_state.iterrows():
             names.append(row[1]['name'])
-            indexes.append(row[1]['label'])  
+            indexes.append(int(row[1]['label']))  # 强制转 int 以防字符串
         labels = [index_2_label[idx] for idx in indexes]
         
-        mat_names = [n[:-10] for n in names]    # (Participant_ID)_(segment)
-        
+        mat_names = []
+        for n in names:
+            base, ext = os.path.splitext(n)
+            if ext.lower() == '.wav':
+                mat_names.append(base + '.mat')
+            else:
+                # 回退: 若长度足够按照旧版本裁剪
+                if len(n) > 10:
+                    mat_names.append(n[:-10])
+                else:
+                    mat_names.append(n)
         return mat_names, labels
     
 class DAIC_WOZ_dataset(Base_dataset):
