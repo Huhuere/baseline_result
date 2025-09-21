@@ -59,3 +59,30 @@ CSV 均按数值顺序排序（先 PID，再片段序号）。
 - 采样策略：
   - train 使用 `proportional`：`label==0 -> 18 条`，`label==1 -> 46 条`
   - dev/test 使用 `fixed`：每个 subject 固定 `FIXED_N` 条
+
+#特征提取
+
+## 快速开始
+
+1）安装依赖
+```
+cd SpeechFormer-master
+python -m pip install -r requirements.txt
+```
+2）下载预训练模型wav2vec
+* The pre-trained wav2vec model is publicly available at [here.](https://github.com/pytorch/fairseq/blob/main/examples/wav2vec)
+```
+python ./extract_feature/extract_wav2vec.py
+```
+Modify the argument: `matdir` in `./config/xxx_feature_config.json` to the folder path of your extracted feature.
+
+
+#训练
+## Train model
+Set the hyper-parameters on `./config/config.py` and `./config/model_config.json`.  
+Note: the value of `expand` in `./config/model_config.json` for SpeechFormer-S is `[1, 1, 1, -1]`, while that of SpeechFormer-B is `[1, 1, 2, -1]`.  
+Next, run:
+```
+python train_model.py
+```
+You can also pass the hyper-parameters from the command line for convenience, more details can be found in `train_model.py`.
