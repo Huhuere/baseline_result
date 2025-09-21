@@ -1,0 +1,37 @@
+{   
+    "num_classes": 7,
+
+    "evaluate": ["F1"], 
+    
+    "meta_csv_file": "/your_metadata_file_path/metadata.csv",
+
+    "spec": {
+        "feature_dim": 442, 
+        "matdir": "/your_feature_path/wav_spec_20ms_mat",
+        "matkey": "spec", 
+        "length": 449,
+        "pad_value": -80,
+        "frame": 0.02,
+        "hop": 0.01
+    },
+
+    "wav2vec": {
+        "feature_dim": 512, 
+        "matdir": "/your_feature_path/wav_wav2vec_mat",
+        "matkey": "wav", 
+        "length": 446,
+        "pad_value": 0,
+        "frame": 0.03,
+        "hop": 0.01
+    },
+
+    "logmel": {
+        "feature_dim": 256, 
+        "matdir": "/your_feature_path/logmel_25ms_mat",
+        "matkey": "logmel", 
+        "length": 446,
+        "pad_value": 0,
+        "frame": 0.025,
+        "hop": 0.01
+    }
+}
