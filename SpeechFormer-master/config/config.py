@@ -12,9 +12,9 @@ _C.train.num_workers = 8
 _C.model.type = 'SpeechFormer'   # Transformer, SpeechFormer
 
 # Total epochs for training
-_C.train.EPOCH = 120
+_C.train.EPOCH = 60
 # The size of a mini-batch 
-_C.train.batch_size = 32
+_C.train.batch_size = 16
 # Initial learning rate
 _C.train.lr = 0.0005
 # Set a random seed for reproducition
