@@ -82,5 +82,5 @@ python ./extract_feature/extract_wav2vec.py
 ## Train model
 设置参数 `./config/config.py` and `./config/model_config.json`.  
 ```
-python train_model.py
+python train_model.py -d daic_woz -f wav2vec 
 ```
